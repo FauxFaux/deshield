@@ -15,10 +15,12 @@ public class Deshield {
 
 	private static final int BLOCK_SIZE = 1024;
 
+
 	private static final Charset CHARSET = Charset.forName("UTF-8");
 
 	/** Magic used in filename key generation. */
 	private static final byte[] MAGIC = { 0x13, 0x35, (byte) 0x86, 0x07 };
+	private static final int BYTES_LEFT_AT_THE_END = 7;
 
 	public static void main(String[] args) throws IOException {
 		final FileInputStream fis = new FileInputStream(args[0]);
@@ -29,7 +31,7 @@ public class Deshield {
 		fis.skip(31);
 
 		try {
-			while (7 != fis.available()) {
+			while (BYTES_LEFT_AT_THE_END != fis.available()) {
 				final byte[] header = read(fis, HEADER_LENGTH);
 				// I don't know what this is.  The rest of the header is null.
 				if (6 != header[LOCATION_OF_SIX])
@@ -111,7 +113,7 @@ public class Deshield {
     }
 
 	static class EndOfFileException extends IOException {
-		// nothind at all
+		// nothing at all
 	}
 
 	private static byte[] read(InputStream fis, int i) throws IOException {
