@@ -21,7 +21,7 @@ public class Deshield {
 	private static final byte[] MAGIC = { 0x13, 0x35, (byte) 0x86, 0x07 };
 
 	public static void main(String[] args) throws IOException {
-		final FileInputStream fis = new FileInputStream("c:\\users\\faux\\desktop\\maps.cab");
+		final FileInputStream fis = new FileInputStream(args[0]);
 
 		// the header:
 		readAndCheck(fis, "InstallShield\0\007");
